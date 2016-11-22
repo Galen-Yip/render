@@ -18,13 +18,128 @@ A server thatpast generate chart image using phantom
 
         npm start
 
-5.  Browse to <http://localhost:3334/> and you should see Render in action.
-
 ## Running Tests
 
 ```
 npm test
 ```
+
+## API
+
+### highcharts
+
+    POST/GET http://127.0.0.1:3334/highcharts
+
+#### params
+
+name              | type    | notes
+:-----------------|:--------|:------------
+config|string|**required**, hightcharts config
+width|number|**optional**, chart width, default value :800
+height|number|**optional**, chart height, default value :400
+clipRect|object|**optional**, viewport to clip, default value : { top: 0, left: 0, width: 800, height: 400 }
+
+```
+{
+    config: JSON.stringify({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                '电信'
+            ]
+        },
+        yAxis: {
+            max:100,
+            title: {
+                text: ' (%)'
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                animation: false
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        series: [
+            {
+                name: '电信',
+                data: [1,2,3,4,5,6]
+            }
+        ]
+    }),
+    width: 800,
+    height: 400,
+    clipRect: { top: 0, left: 0, width: 800, height: 400 }
+}
+```
+
+#### response
+
+return the base64 of chart image.
+
+---
+
+### echarts
+
+    POST/GET http://127.0.0.1:3334/echarts
+
+#### params
+
+name              | type    | notes
+:-----------------|:--------|:------------
+config|string|**required**, echarts config
+width|number|**optional**, chart width, default value :800
+height|number|**optional**, chart height, default value :400
+clipRect|object|**optional**, viewport to clip, default value : { top: 0, left: 0, width: 800, height: 400 }
+
+
+```
+{
+    config: JSON.stringify({
+        title: {
+            text: 'ECharts'
+        },
+        tooltip: {},
+        legend: {
+            data:['销量']
+        },
+        xAxis: {
+            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+        }]
+    }),
+    width: 800,
+    height: 400,
+    clipRect: { top: 0, left: 0, width: 800, height: 400 }
+}
+```
+
+#### response
+
+return the base64 of chart image.
 
 ## Contributing
 

@@ -4,6 +4,7 @@
   "description": "A server thatpast generate chart image using phantom",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "./node_modules/.bin/mocha"
   },
   "keywords": [
