@@ -1,0 +1,31 @@
+{
+  "name": "render",
+  "version": "1.0.0",
+  "description": "past charts config to generate chart image",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "keywords": [
+    "phantom",
+    "highcharts",
+    "echarts"
+  ],
+  "author": "galenye",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "lodash": "^4.17.2",
+    "moment": "^2.16.0",
+    "phantom": "^3.0.3",
+    "utility": "^1.9.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.2",
+    "should": "^11.1.1"
+  }
+}

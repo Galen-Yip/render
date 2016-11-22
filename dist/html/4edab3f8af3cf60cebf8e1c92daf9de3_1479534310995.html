@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin:0;
+            padding: 0
+        }
+    </style>
+</head>
+<body>
+<div id="container" style="height: 400px; width: 800px;background:#fff"></div>
+<script src="../../js/jquery-1.8.3.min.js"></script>
+<script src="../../js/echarts.min.js"></script>
+<script type="text/javascript">
+    
+    var chartConfig = {"title":{"text":"ECharts 入门示例"},"tooltip":{},"legend":{"data":["销量"]},"xAxis":{"data":["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]},"yAxis":{},"series":[{"name":"销量","type":"bar","data":[5,20,36,10,10,20]}]};
+
+    $.extend(chartConfig, {animation: false})
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('container'));
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(chartConfig);
+</script>
+</body>
+</html>

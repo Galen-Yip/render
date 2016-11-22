@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin:0;
+            padding: 0
+        }
+    </style>
+</head>
+<body>
+<div id="container" style="height: <%=chartHeight%>px; width: <%=chartWidth%>px;"></div>
+<script src="../../static/js/jquery-1.8.3.min.js"></script>
+<script src="../../static/js/echarts.min.js"></script>
+<script type="text/javascript">
+    
+    var chartConfig = <%- chartConfig%>;
+
+    $.extend(chartConfig, {animation: false})
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('container'));
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(chartConfig);
+</script>
+</body>
+</html>
