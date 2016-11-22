@@ -1,7 +1,7 @@
 {
   "name": "render",
   "version": "1.0.0",
-  "description": "past charts config to generate chart image",
+  "description": "A server thatpast generate chart image using phantom",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha"
@@ -11,8 +11,8 @@
     "highcharts",
     "echarts"
   ],
-  "author": "galenye",
-  "license": "ISC",
+  "author": "galen yip",
+  "license": "BSD",
   "dependencies": {
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
