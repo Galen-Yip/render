@@ -28,20 +28,21 @@ npm test
 
 ### highcharts
 
-    POST/GET http://127.0.0.1:3334/highcharts
+    POST http://127.0.0.1:3334/highcharts
 
 #### params
 
 name              | type    | notes
 :-----------------|:--------|:------------
-config|string|**required**, hightcharts config
+chartConfig|object|**required**, hightcharts config
 width|number|**optional**, chart width, default value :800
 height|number|**optional**, chart height, default value :400
 clipRect|object|**optional**, viewport to clip, default value : { top: 0, left: 0, width: 800, height: 400 }
 
 ```
+// params format should be a json
 {
-    config: JSON.stringify({
+    chartConfig: {
         chart: {
             type: 'column'
         },
@@ -84,7 +85,7 @@ clipRect|object|**optional**, viewport to clip, default value : { top: 0, left: 
                 data: [1,2,3,4,5,6]
             }
         ]
-    }),
+    },
     width: 800,
     height: 400,
     clipRect: { top: 0, left: 0, width: 800, height: 400 }
@@ -105,15 +106,16 @@ return the base64 of chart image.
 
 name              | type    | notes
 :-----------------|:--------|:------------
-config|string|**required**, echarts config
+chartConfig|object|**required**, echarts config
 width|number|**optional**, chart width, default value :800
 height|number|**optional**, chart height, default value :400
 clipRect|object|**optional**, viewport to clip, default value : { top: 0, left: 0, width: 800, height: 400 }
 
 
 ```
+// params format should be a json
 {
-    config: JSON.stringify({
+    chartConfig: {
         title: {
             text: 'ECharts'
         },
@@ -130,7 +132,7 @@ clipRect|object|**optional**, viewport to clip, default value : { top: 0, left: 
             type: 'bar',
             data: [5, 20, 36, 10, 10, 20]
         }]
-    }),
+    },
     width: 800,
     height: 400,
     clipRect: { top: 0, left: 0, width: 800, height: 400 }

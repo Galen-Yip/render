@@ -3,6 +3,9 @@
 /*
 debug run with: 
 $ NODE_ENV=development nodemon index.js
+
+tar with:
+$ tar --exclude node_modules -zcvf render.tar.gz render
  */
 
 var express = require('express');

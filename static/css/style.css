@@ -8,7 +8,7 @@
 .index-banner{
     background: #16a085;
     color: #fff;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', 'Roboto', sans-serif;
     height: 400px;
     position: relative;
 }

@@ -8,13 +8,15 @@
 
 #### highcharts 
 
-* POST/GET http://render.oa.com/highcharts
+* POST http://render.oa.com/highcharts
 
 ##### params
 
+the host param format should be a json, params include:
+
 name              | type    | notes
 :-----------------|:--------|:------------
-config|string|**required**, hightcharts config
+chartConfig|object|**required**, hightcharts config
 width|number|**optional**, chart width, default value :800
 height|number|**optional**, chart height, default value :400
 clipRect|object|**optional**, viewport to clip, default value : { top: 0, left: 0, width: 800, height: 400 }
@@ -32,13 +34,15 @@ return the base64 of chart image.
 
 #### echarts
 
-* POST/GET http://render.oa.com/echarts
+* POST http://render.oa.com/echarts
 
 ##### params
 
+the host param format should be a json, params include:
+
 name              | type    | notes
 :-----------------|:--------|:------------
-config|string|**required**, echarts config
+chartConfig|object|**required**, echarts config
 width|number|**optional**, chart width, default value :800
 height|number|**optional**, chart height, default value :400
 clipRect|object|**optional**, viewport to clip, default value : { top: 0, left: 0, width: 800, height: 400 }
