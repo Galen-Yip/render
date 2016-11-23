@@ -8,6 +8,7 @@ var pathLib = require('path');
 var urlLib = require('url');
 var phantom = require('phantom');
 var utility = require('utility');
+var config = require('../config')
 var highchartsLayout = fs.readFileSync(getAbsolutePath('../layout/highcharts.html'), 'utf-8');
 var echartsLayout = fs.readFileSync(getAbsolutePath('../layout/echarts.html'), 'utf-8');
 
@@ -46,9 +47,9 @@ function fixPhantomPath(path) {
 }
 
 function renderChart(req, res, next) {
-    var chartConfig = req.body.config || req.query.config;
-    var chartWidth = Number(req.body.width || req.query.width);
-    var chartHeight = Number(req.body.height || req.query.height);
+    var chartConfig = req.body.chartConfig;
+    var chartWidth = Number(req.body.width);
+    var chartHeight = Number(req.body.height);
     var options = {
         clipRect: req.body.clipRect || req.query.clipRect
     }
@@ -63,29 +64,30 @@ function renderChart(req, res, next) {
             break;
     }
 
-    if(!_.isString(chartConfig)) {
-        return next('require config [string] param')
+    if(!_.isObject(chartConfig)) {
+        return next('`chartConfig` should be an object')
     }
     if(chartWidth && !_.isNumber(chartWidth)) {
-        return next('width should be a positive number')
+        return next('`width` should be a positive number')
     }
     if(chartHeight && !_.isNumber(chartHeight)) {
-        return next('height should be a positive number')
+        return next('`height` should be a positive number')
     }
     if(options.clipRect && !_.isObject(options.clipRect)) {
-        return next('clipRect should be an object')
+        return next('`clipRect` should be an object')
     }
 
+    var chartConfigStr = JSON.stringify(chartConfig)
     chartWidth = chartWidth || 800;
     chartHeight = chartHeight || 400;
     options.clipRect = options.clipRect || { top: 0, left: 0, width: 800, height: 400 };
 
     var nowTimeStamp = moment().format('x');
-    var configMd5 = utility.md5(chartConfig);
+    var configMd5 = utility.md5(chartConfigStr);
     var chartHtmlPath = pathLib.join(htmlDistPath,`${configMd5}_${nowTimeStamp}.html`);
     var imgPath = pathLib.join(imgDistPath,`${configMd5}_${nowTimeStamp}.png`);
 
-    var chartHtmlStr = ejs.render(layoutStr, { chartConfig, chartWidth, chartHeight });
+    var chartHtmlStr = ejs.render(layoutStr, { chartConfigStr, chartWidth, chartHeight });
 
     fs.writeFile(chartHtmlPath, chartHtmlStr, function (err) {
         if (err) {

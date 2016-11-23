@@ -75,8 +75,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="alert alert-warning" role="alert">
-                            <strong>生成语句：</strong> curl http://render.oa.com/{{chartType}} -d 'config={{chartConfig}}&width:{{chartWidth}}&height={{chartHeight}}&
-                            clipRect[top]=0&clipRect[left]=0&clipRect[width]={{chartWidth}}&clipRect[height]={{chartHeight}}'
+                            <strong>生成语句：</strong> curl {{config.backend_api}}/{{chartType}} -H "Content-Type: application/json" -d '{{requestBodyStr}}'
                         </div>
                     </div>
                 </div>
@@ -85,6 +84,9 @@
             </div>
         </div>
     </div>
+    <script>
+        window.__render_config = <%= JSON.stringify(config) %>
+    </script>
     <script src="./js/jquery-1.8.3.min.js"></script>
     <script src='./js/jquery.particleground.min.js'></script>
     <script src="./js/vue.js"></script>
