@@ -1,0 +1,47 @@
+.navbar{
+    border-radius: 0;
+}
+.nav-link {
+    width: 80px;
+    text-align: center;
+}
+.index-banner{
+    background: #16a085;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    height: 400px;
+    position: relative;
+}
+.banner-intro{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    padding: 0 20px;
+    width: 100%;
+    text-align: center;
+    transform: translate(0, -50%)
+}
+.banner-intro h1::after {
+    content: '';
+    width: 80px;
+    display: block;
+    background: #fff;
+    height: 10px;
+    margin: 30px auto;
+    line-height: 1.1;
+}
+.type-wrap{
+    margin-bottom: 10px;
+}
+.chart-config-input{
+    height:500px;
+}
+.chart-img-result{
+    height:500px;
+    color: #959595;
+    overflow-y: scroll
+}
+.about-txt{
+    padding-top: 100px;
+    
+}

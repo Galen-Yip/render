@@ -2,76 +2,92 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Highcharts</title>
-    <style>
-        * {
-            margin:0;
-            padding: 0
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Render</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-<div id="container"></div>
-<script src="./js/jquery-1.8.3.min.js"></script>
-<script src="./js/highcharts-5.0.0.js"></script>
-<script type="text/javascript">
-    $.ajax({
-        url: 'http://127.0.0.1:3334/highcharts',
-        type: 'POST',
-        data: {
-            config: JSON.stringify({
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: ''
-                },
-                subtitle: {
-                    text: ''
-                },
-                xAxis: {
-                    categories: [
-                        '电信'
-                    ]
-                },
-                yAxis: {
-                    max:100,
-                    title: {
-                        text: ' (%)'
-                    }
-                },
-                credits: {
-                    enabled: false
-                },
-                plotOptions: {
-                    series: {
-                        animation: false
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                    footerFormat: '</table>',
-                    shared: true,
-                    useHTML: true
-                },
-                series: [
-                    {
-                        name: '电信',
-                        data: [1,2,3,4,5,6]
-                    }
-                ]
-            }),
-            width: 800,
-            height: 400,
-            clipRect: { top: 0, left: 0, width: 800, height: 400 }
-        }
-    }).done(function(base64) {
-        console.log(base64)
-    }).fail(function(err) {
-        console.log(err)
-    })
-</script>
+    <div>
+        <nav class="navbar navbar-dark bg-inverse">
+            <div class="container">
+                <a class="navbar-brand" href="#">Render</a>
+                <ul class="nav navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">首页 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/doc">文档</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">关于我们</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="jumbotron jumbotron-fluid index-banner">
+          <div class="container banner-intro">
+            <h1 class="display-3">Render</h1>
+            <p class="lead">致力于提供简单的生成图表图片的接口，仅需传递对应的图表的config. <Br>目前支持highcharts、echarts两种图表，后续将加入更多图表库的支持.</p>
+          </div>
+        </div>
+        <div class="container main-container">
+            <div class="container-fluid">
+                
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="alert alert-info " role="alert">
+                            <strong>接口在线测试：</strong><br>在左侧填入对应的图表的config，选择对应参数，在右侧和下侧会生成对应的图表和curl语句
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row type-wrap">
+                    <label class="col-form-label col-sm-1" for="chartTypeSelector"> 类型：</label>
+                    <div class="col-sm-2">
+                        <select id="chartTypeSelector" class="form-control" v-model="chartType">
+                            <option value="highcharts">Highcharts</option>
+                            <option value="echarts">Echarts</option>
+                        </select>
+                    </div>
+                    <label class="col-form-label col-sm-1" for="chartWidthInput"> 宽度：</label>
+                    <div class="col-sm-2">
+                        <input type="number" id="chartWidthInput" class="form-control" v-model="chartWidth">
+                    </div>
+                    <label class="col-form-label col-sm-1" for="chartHeightInput"> 高度：</label>
+                    <div class="col-sm-2">
+                        <input type="number" id="chartHeightInput" class="form-control" v-model="chartHeight">
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-success" @click="generateImg()">生成</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <textarea class="form-control card card-block chart-config-input" v-model="chartConfig"></textarea>
+                    </div>
+                    <div class="col-sm-6 card card-block chart-img-result">
+                        <span>生成对应的图片</span>
+                        <!-- <img v-if="chartImgData" :src="chartImgData" /> -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="alert alert-warning" role="alert">
+                            <strong>生成语句：</strong> curl http://render.oa.com/{{chartType}} -d 'config={{chartConfig}}&width:{{chartWidth}}&height={{chartHeight}}&
+                            clipRect[top]=0&clipRect[left]=0&clipRect[width]={{chartWidth}}&clipRect[height]={{chartHeight}}'
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <script src="./js/jquery-1.8.3.min.js"></script>
+    <script src='./js/jquery.particleground.min.js'></script>
+    <script src="./js/vue.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 </html>

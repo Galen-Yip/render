@@ -101,8 +101,8 @@ function renderChart(req, res, next) {
                 var base64 = new Buffer(fs.readFileSync(imgPath)).toString('base64');
                 res.send(base64);
 
-                // fs.unlink(chartHtmlPath);
-                // fs.unlink(imgPath);
+                fs.unlink(chartHtmlPath);
+                fs.unlink(imgPath);
             })
             .catch(function (e) {
                 return next(e);

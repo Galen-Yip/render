@@ -21,6 +21,15 @@ app.use(express.static(staticDir));
 
 app.all('/highcharts', chartsController);
 app.all('/echarts', chartsController);
+app.get('/', function(req, res, next) {
+    res.sendFile(pathLib.join(staticDir, 'index.html'));
+});
+app.get('/doc', function(req, res, next) {
+    res.sendFile(pathLib.join(staticDir, 'doc.html'));
+});
+app.get('/about', function(req, res, next) {
+    res.sendFile(pathLib.join(staticDir, 'about.html'));
+});
 
 var serverPort = 3334;
 app.listen(serverPort);
