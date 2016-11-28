@@ -98,16 +98,26 @@ function renderChart(req, res, next) {
 
         generateImg(urlPath, imgPath, options)
             .then(function() {
-                console.log('img done');
 
-                var base64 = new Buffer(fs.readFileSync(imgPath)).toString('base64');
+                // fs.readFile(imgPath, function(err, imgBuffer) {
+                //     if (err) throw err;
+
+                //     var base64 = new Buffer(imgBuffer).toString('base64');
+                //     res.send(base64);
+
+                //     // fs.unlink(chartHtmlPath);
+                //     // fs.unlink(imgPath);
+                // });
+                
+                var imgBuffer = fs.readFileSync(imgPath);
+                    
+                var base64 = new Buffer(imgBuffer).toString('base64');
                 res.send(base64);
 
-                fs.unlink(chartHtmlPath);
-                fs.unlink(imgPath);
             })
             .catch(function (e) {
-                return next(e);
+                console.log('error', e.timestamp)
+                return next(e.error);
             });
     });
 }
@@ -115,26 +125,29 @@ function renderChart(req, res, next) {
 function generateImg(url, dist, options) {
     var sitepage = void 0;
     var phInstance = void 0;
-    return phantom.create().then(function (instance) {
-        phInstance = instance;
-        return instance.createPage();
-    }).then(function (page) {
-        sitepage = page;
-        return page.open(url);
-    }).then(function (status) {
-        console.log(status);
-        sitepage.property('viewportSize', options.viewportSize);
-        sitepage.property('clipRect', options.clipRect);
-        return sitepage.property('content');
-    }).then(function (content) {
-        return sitepage.render(dist, { format: 'png', quality: '100' }).then(function() {
-            sitepage.close();
+    return new Promise(function(resolve, reject) {
+        phantom.create().then(function (instance) {
+            phInstance = instance;
+            return instance.createPage();
+        }).then(function (page) {
+            sitepage = page;
+            return page.open(url);
+        }).then(function (status) {
+            sitepage.property('viewportSize', options.viewportSize);
+            sitepage.property('clipRect', options.clipRect);
+            return sitepage.property('content');
+        }).then(function (content) {
+            sitepage.render(dist, { format: 'png', quality: '100' }).then(function() {
+                console.log('img done', dist);
+                sitepage.close();
+                phInstance.exit();
+                resolve()
+            })
+        }).catch(function (error) {
             phInstance.exit();
-        })
-    }).catch(function (error) {
-        throw new Error(error)
-        phInstance.exit();
-    });
+            reject({error, timestamp})
+        });
+    })
 }
 
 module.exports = renderChart;
