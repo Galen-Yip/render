@@ -32,6 +32,8 @@ npm test
 
 #### params
 
+Content-Type should be application/json
+
 name              | type    | notes
 :-----------------|:--------|:------------
 chartConfig|object|**required**, hightcharts config
@@ -39,8 +41,8 @@ width|number|**optional**, chart width, default value :800
 height|number|**optional**, chart height, default value :400
 clipRect|object|**optional**, viewport to clip, default value : { top: 0, left: 0, width: 800, height: 400 }
 
-```
-// params format should be a json
+```js
+// Content-Type should be application/json
 {
     chartConfig: {
         chart: {
@@ -104,6 +106,8 @@ return the base64 of chart image.
 
 #### params
 
+Content-Type should be application/json
+
 name              | type    | notes
 :-----------------|:--------|:------------
 chartConfig|object|**required**, echarts config
@@ -112,8 +116,8 @@ height|number|**optional**, chart height, default value :400
 clipRect|object|**optional**, viewport to clip, default value : { top: 0, left: 0, width: 800, height: 400 }
 
 
-```
-// params format should be a json
+```js
+// Content-Type should be application/json
 {
     chartConfig: {
         title: {
