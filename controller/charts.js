@@ -38,6 +38,11 @@ function fixPhantomPath(path) {
     return path;
 }
 
+var chartTypeToLayout = {
+    highcharts: highchartsLayout,
+    echarts: echartsLayout,
+}
+
 function renderChart(req, res, next) {
     var chartConfig = req.body.chartConfig;
     var chartWidth = Number(req.body.width);
@@ -45,16 +50,8 @@ function renderChart(req, res, next) {
     var options = {
         clipRect: req.body.clipRect || req.query.clipRect
     }
-    var layoutStr;
-
-    switch(req.path) {
-        case '/highcharts': 
-            layoutStr = highchartsLayout;
-            break;
-        case '/echarts':
-            layoutStr = echartsLayout;
-            break;
-    }
+    var chartType = req.params.chart_type;
+    var layoutStr = chartTypeToLayout[chartType] || highchartsLayout;
 
     if(!_.isObject(chartConfig)) {
         return next('`chartConfig` should be an object')
@@ -122,7 +119,7 @@ function generateImg(url, dist, options) {
         sitepage.property('clipRect', options.clipRect);
         return sitepage.property('content');
     }).then(function (content) {
-        return sitepage.render(dist, { format: 'png', quality: '100' })
+        return sitepage.render(dist, { format: 'png' })
     }).then(function() {
         console.log('img done', dist);
         sitepage.close();
