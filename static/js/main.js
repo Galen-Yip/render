@@ -5,11 +5,8 @@
             lineColor: '#5cbdaa'
         });
 
-        var app = new Vue({
-            el: '.main-container',
-            data: {
-                chartConfig: 
-`{
+        var defaultConfig = {
+highcharts: `{
     title: {
         text: 'Monthly Average Temperature',
         x: -20 //center
@@ -55,19 +52,108 @@
         data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
     }]
 }`,
+echarts: `{
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    legend: {
+        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'value'
+    },
+    yAxis: {
+        type: 'category',
+        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+    },
+    series: [{
+        name: '直接访问',
+        type: 'bar',
+        stack: '总量',
+        label: {
+            normal: {
+                show: true,
+                position: 'insideRight'
+            }
+        },
+        data: [320, 302, 301, 334, 390, 330, 320]
+    }, {
+        name: '邮件营销',
+        type: 'bar',
+        stack: '总量',
+        label: {
+            normal: {
+                show: true,
+                position: 'insideRight'
+            }
+        },
+        data: [120, 132, 101, 134, 90, 230, 210]
+    }, {
+        name: '联盟广告',
+        type: 'bar',
+        stack: '总量',
+        label: {
+            normal: {
+                show: true,
+                position: 'insideRight'
+            }
+        },
+        data: [220, 182, 191, 234, 290, 330, 310]
+    }, {
+        name: '视频广告',
+        type: 'bar',
+        stack: '总量',
+        label: {
+            normal: {
+                show: true,
+                position: 'insideRight'
+            }
+        },
+        data: [150, 212, 201, 154, 190, 330, 410]
+    }, {
+        name: '搜索引擎',
+        type: 'bar',
+        stack: '总量',
+        label: {
+            normal: {
+                show: true,
+                position: 'insideRight'
+            }
+        },
+        data: [820, 832, 901, 934, 1290, 1330, 1320]
+    }]
+}`
+        }
+
+        var app = new Vue({
+            el: '.main-container',
+            data: {
+                chartConfig: defaultConfig.highcharts,
                 chartType: 'highcharts',
                 chartWidth: 500,
                 chartHeight: 400,
                 // chartImgData: '',
                 config: window.__render_config,
+                isConfigError: false
             },
             computed: {
                 chartConfigObj: function () {
                     var obj;
                     try {
-                        obj = eval('(' + this.chartConfig + ')')
+                        obj = eval('(' + this.chartConfig + ')');
+                        this.isConfigError = false
                     } catch (e) {
                         obj = '非法json格式'
+                        this.isConfigError = true
                     }
                     return obj;
                 },
@@ -106,6 +192,11 @@
                         console.log(err)
                     })
                 }
+            },
+            created: function() {
+                this.$watch('chartType', function(chartType) {
+                    this.chartConfig = defaultConfig[chartType]
+                })
             }
         }) 
 

@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6" :class="[{'has-danger': isConfigError}]">
                     <textarea class="form-control card card-block chart-config-input" v-model="chartConfig"></textarea>
                 </div>
                 <div class="col-sm-6 card card-block chart-img-result">
