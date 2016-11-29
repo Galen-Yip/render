@@ -15,7 +15,7 @@ function generateImg(url, dist, options) {
         // sitepage.property('clipRect', options.clipRect);
         return sitepage.property('content');
     }).then(function (content) {
-        return sitepage.render(dist, { format: 'png', quality: '100' }).then(function() {
+        return sitepage.render(dist, { format: 'png'}).then(function() {
             sitepage.close();
             phInstance.exit();
         })
@@ -25,4 +25,4 @@ function generateImg(url, dist, options) {
     });
 }
 
-generateImg('http://qq.com', './test.png')
+generateImg('http://qq.com', './test_generate_img.png')
