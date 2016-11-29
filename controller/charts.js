@@ -111,29 +111,25 @@ function renderChart(req, res, next) {
 function generateImg(url, dist, options) {
     var sitepage = void 0;
     var phInstance = void 0;
-    return new Promise(function(resolve, reject) {
-        phantom.create().then(function (instance) {
-            phInstance = instance;
-            return instance.createPage();
-        }).then(function (page) {
-            sitepage = page;
-            return page.open(url);
-        }).then(function (status) {
-            sitepage.property('viewportSize', options.viewportSize);
-            sitepage.property('clipRect', options.clipRect);
-            return sitepage.property('content');
-        }).then(function (content) {
-            sitepage.render(dist, { format: 'png', quality: '100' }).then(function() {
-                console.log('img done', dist);
-                sitepage.close();
-                phInstance.exit();
-                resolve()
-            })
-        }).catch(function (error) {
-            phInstance.exit();
-            reject({error, timestamp})
-        });
-    })
+    return phantom.create().then(function (instance) {
+        phInstance = instance;
+        return instance.createPage();
+    }).then(function (page) {
+        sitepage = page;
+        return page.open(url);
+    }).then(function (status) {
+        sitepage.property('viewportSize', options.viewportSize);
+        sitepage.property('clipRect', options.clipRect);
+        return sitepage.property('content');
+    }).then(function (content) {
+        return sitepage.render(dist, { format: 'png', quality: '100' })
+    }).then(function() {
+        console.log('img done', dist);
+        sitepage.close();
+        phInstance.exit();
+    }).catch(function (error) {
+        phInstance.exit();
+    });
 }
 
 module.exports = renderChart;
