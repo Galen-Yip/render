@@ -27,8 +27,7 @@ app.use(cookieParser());
 app.use(compression());
 app.use(bodyParser.json());
 
-app.all('/highcharts', chartsController);
-app.all('/echarts', chartsController);
+app.post('/:chart_type', chartsController);
 
 var indexContent = generateIndexContent()
 app.get('/', function(req, res, next) {
