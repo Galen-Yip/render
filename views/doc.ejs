@@ -1,0 +1,33 @@
+<%- include('header') %>
+<div>
+    <nav class="navbar navbar-dark bg-inverse">
+        <div class="container">
+            <a class="navbar-brand" href="/">Render</a>
+            <ul class="nav navbar-nav">
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">首页</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/doc">文档 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">关于我们</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="padding-top: 25px;">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12 md_res markdown-body">
+                    <%- readme %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./js/jquery-1.8.3.min.js"></script>
+<script src="./js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<%- include('footer') %>

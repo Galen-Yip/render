@@ -26,7 +26,7 @@ npm test
 
 ## API
 
-### highcharts
+### highcharts 5.x
 
     POST http://127.0.0.1:3334/highcharts
 
@@ -102,7 +102,7 @@ return the base64 of chart image.
 
 ---
 
-### echarts
+### echarts 3.x
 
     POST/GET http://127.0.0.1:3334/echarts
 

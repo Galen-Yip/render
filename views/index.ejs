@@ -1,0 +1,90 @@
+<%- include('header') %>
+<div>
+    <nav class="navbar navbar-dark bg-inverse">
+        <div class="container">
+            <a class="navbar-brand" href="/">Render</a>
+            <ul class="nav navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">首页 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/doc">文档</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">关于我们</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="jumbotron jumbotron-fluid index-banner">
+      <div class="container banner-intro">
+        <h1 class="display-3">Render</h1>
+        <p class="lead">致力于提供简单的生成图表图片的接口，仅需传递对应的图表的config. <Br>目前支持highcharts、echarts两种图表，后续将加入更多图表库的支持.</p>
+      </div>
+    </div>
+    <div class="container main-container">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-info " role="alert">
+                        <strong>接口在线测试：</strong><br>在左侧填入对应的图表的config，选择对应参数，在右侧和下侧会生成对应的图表和curl语句
+                    </div>
+                </div>
+            </div>
+
+            <div class="row type-wrap">
+                <label class="col-form-label col-sm-1" for="chartTypeSelector"> 类型：</label>
+                <div class="col-sm-2">
+                    <select id="chartTypeSelector" class="form-control" v-model="chartType">
+                        <option value="highcharts">Highcharts 5.x</option>
+                        <option value="echarts">Echarts 3.x</option>
+                    </select>
+                </div>
+                <label class="col-form-label col-sm-1" for="chartWidthInput"> 宽度：</label>
+                <div class="col-sm-2">
+                    <input type="number" id="chartWidthInput" class="form-control" v-model="chartWidth">
+                </div>
+                <label class="col-form-label col-sm-1" for="chartHeightInput"> 高度：</label>
+                <div class="col-sm-2">
+                    <input type="number" id="chartHeightInput" class="form-control" v-model="chartHeight">
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-success" @click="generateImg()">生成</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <textarea class="form-control card card-block chart-config-input" v-model="chartConfig"></textarea>
+                </div>
+                <div class="col-sm-6 card card-block chart-img-result">
+                    <span>生成对应的图片</span>
+                    <!-- <img v-if="chartImgData" :src="chartImgData" /> -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-warning" role="alert">
+                        <strong>curl语句：</strong> curl {{config.backend_api}}/{{chartType}} -H "Content-Type: application/json" -d '{{requestBodyStr}}'
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script>
+    window.__render_config = <%- JSON.stringify(config) %>
+</script>
+<script src="./js/jquery-1.8.3.min.js"></script>
+<script src='./js/jquery.particleground.min.js'></script>
+<script src="./js/vue.js"></script>
+<script src="./js/main.js"></script>
+<script>
+    console.log("%cQcloud CDN FETeam\n"," text-shadow: 0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 4px 0 #b9b9b9,0 5px 0 #aaa,0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.2),0 20px 20px rgba(0,0,0,.15);font-size:5em")
+    console.log("我们还在招人")
+    console.log("请将简历发送至 hertzhu@tencent.com")
+</script>
+<%- include('footer') %>
