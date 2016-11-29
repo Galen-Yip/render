@@ -31,17 +31,15 @@
             <div class="container-fluid">
                 
                 <div class="row">
-                    <div class="col-sm-12 md_res">
-                        
+                    <div class="col-sm-12 md_res markdown-body">
+                        <%= readme %>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="./js/jquery-1.8.3.min.js"></script>
-    <script src="./js/vue.js"></script>
-    <script src="./js/showdown.min.js"></script>
     <script src="./js/highlight.min.js"></script>
-    <script src="./js/doc.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>
