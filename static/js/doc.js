@@ -12,7 +12,7 @@
 
 ##### params
 
-the host param format should be a json, params include:
+Content-Type should be application/json, params include:
 
 name              | type    | notes
 :-----------------|:--------|:------------
@@ -38,7 +38,7 @@ return the base64 of chart image.
 
 ##### params
 
-the host param format should be a json, params include:
+Content-Type should be application/json, params include:
 
 name              | type    | notes
 :-----------------|:--------|:------------

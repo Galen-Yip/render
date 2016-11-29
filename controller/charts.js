@@ -9,28 +9,20 @@ var urlLib = require('url');
 var phantom = require('phantom');
 var utility = require('utility');
 var config = require('../config')
+var mkdirp = require('mkdirp')
 var highchartsLayout = fs.readFileSync(getAbsolutePath('../layout/highcharts.html'), 'utf-8');
 var echartsLayout = fs.readFileSync(getAbsolutePath('../layout/echarts.html'), 'utf-8');
 
 var distPath = getAbsolutePath('../dist');
 var htmlDistPath = pathLib.join(distPath, 'html');
 var imgDistPath = pathLib.join(distPath, 'img');
+var fileNameCount = 0;
 
-(function createFileDir() {
-    if (!fs.existsSync(distPath)) {
-        fs.mkdirSync(distPath)
-    }
-    if (!fs.existsSync(htmlDistPath)) {
-        fs.mkdir(htmlDistPath, function(err) {
-            if(err) throw err
-        })
-    }
-    if (!fs.existsSync(imgDistPath)) {
-        fs.mkdir(imgDistPath, function(err) {
-            if(err) throw err
-        })
-    }
-})()
+// ensure all dir exists
+mkdirp(distPath)
+mkdirp(htmlDistPath)
+mkdirp(imgDistPath)
+
 
 function getAbsolutePath(path) {
     return pathLib.join(__dirname, path);
@@ -84,8 +76,9 @@ function renderChart(req, res, next) {
 
     var nowTimeStamp = moment().format('x');
     var configMd5 = utility.md5(chartConfigStr);
-    var chartHtmlPath = pathLib.join(htmlDistPath,`${configMd5}_${nowTimeStamp}.html`);
-    var imgPath = pathLib.join(imgDistPath,`${configMd5}_${nowTimeStamp}.png`);
+    var filename = String(fileNameCount++)
+    var chartHtmlPath = pathLib.join(htmlDistPath,`${filename}.html`);
+    var imgPath = pathLib.join(imgDistPath,`${filename}.png`);
 
     var chartHtmlStr = ejs.render(layoutStr, { chartConfigStr, chartWidth, chartHeight });
 
@@ -98,22 +91,15 @@ function renderChart(req, res, next) {
 
         generateImg(urlPath, imgPath, options)
             .then(function() {
+                fs.readFile(imgPath, function(err, imgBuffer) {
+                    if (err) {return next(err)};
 
-                // fs.readFile(imgPath, function(err, imgBuffer) {
-                //     if (err) throw err;
+                    var base64 = imgBuffer.toString('base64');
+                    res.send(base64);
 
-                //     var base64 = new Buffer(imgBuffer).toString('base64');
-                //     res.send(base64);
-
-                //     // fs.unlink(chartHtmlPath);
-                //     // fs.unlink(imgPath);
-                // });
-                
-                var imgBuffer = fs.readFileSync(imgPath);
-                    
-                var base64 = new Buffer(imgBuffer).toString('base64');
-                res.send(base64);
-
+                    fs.unlink(chartHtmlPath);
+                    fs.unlink(imgPath);
+                });
             })
             .catch(function (e) {
                 console.log('error', e.timestamp)
