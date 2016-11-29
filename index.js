@@ -29,14 +29,10 @@ app.use(bodyParser.json());
 
 app.all('/highcharts', chartsController);
 app.all('/echarts', chartsController);
+
+var indexContent = generateIndexContent()
 app.get('/', function(req, res, next) {
-	var indexContent = fs.readFileSync(pathLib.join(staticDir, 'index.html'), 'utf-8')
-	res.send(_.template(indexContent)({
-		// config 必须有选择的暴露字段，不能全部暴露出去
-		config: {
-			backend_api: config.backend_api
-		}
-	}))
+	res.send(indexContent)
 });
 app.get('/doc', function(req, res, next) {
     res.sendFile(pathLib.join(staticDir, 'doc.html'));
@@ -46,7 +42,16 @@ app.get('/about', function(req, res, next) {
 });
 app.use(express.static(staticDir));
 
-var serverPort = 3334;
-app.listen(serverPort);
-console.log(`render server start at port ${serverPort}`);
+function generateIndexContent() {
+	var indexContent = fs.readFileSync(pathLib.join(staticDir, 'index.html'), 'utf-8')
+	return _.template(indexContent)({
+		// config 必须有选择的暴露字段，不能全部暴露出去
+		config: {
+			backend_api: config.backend_api
+		}
+	})
+}
+
+app.listen(config.port);
+console.log(`render server start at port ${config.port}`);
 
