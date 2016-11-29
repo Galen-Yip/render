@@ -1,6 +1,6 @@
 # Render
 
-A server thatpast generate chart image using phantom
+A server that past a chart config to generate chart image using phantom
 
 ## Installing
 
