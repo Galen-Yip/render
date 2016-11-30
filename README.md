@@ -2,6 +2,7 @@
 
 A server that past a chart config to generate chart image using phantom
 
+<div class="install-stat">
 ## Installing
 
 1.  Install Node.js.
@@ -23,6 +24,7 @@ A server that past a chart config to generate chart image using phantom
 ```
 npm test
 ```
+</div>
 
 ## API
 
@@ -206,11 +208,13 @@ clipRect|object|**optional**, viewport to clip, default value : { top: 0, left: 
 
 return the base64 of chart image.
 
+<div class="copyright-stat">
 ## Contributing
 
 Want to fix a bug? If it's something small, just send a pull request. If you
 want to add a new feature or make significant changes, please get in touch and
 ask if I'm interested before doing the work.
+
 
 ## License
 
@@ -232,3 +236,4 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</div>
