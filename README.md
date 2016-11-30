@@ -2,7 +2,8 @@
 
 A server that past a chart config to generate chart image using phantom
 
-<div class="install-stat">
+
+<section class="install-stat">
 
 ## Installing
 
@@ -26,7 +27,7 @@ A server that past a chart config to generate chart image using phantom
 npm test
 ```
 
-</div>
+</section>
 
 ## API
 
@@ -210,7 +211,7 @@ clipRect|object|**optional**, viewport to clip, default value : { top: 0, left: 
 
 return the base64 of chart image.
 
-<div class="copyright-stat">
+<section class="copyright-stat">
 
 ## Contributing
 
@@ -240,4 +241,4 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-</div>
+</section>
