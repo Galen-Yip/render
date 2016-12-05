@@ -1,4 +1,4 @@
-var backend_api = 'http://render.oa.com'
+var backend_api = 'http://127.0.0.1:3334'
 
 var config = {
 	backend_api: backend_api,
