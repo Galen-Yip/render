@@ -18,7 +18,7 @@
     
     var chartConfig = <%- chartConfigStr %>;
     
-    $.extend(chartConfig, {
+    $.extend(true, chartConfig, {
         plotOptions: {
             series: {
                 animation: false
